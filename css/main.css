@@ -1,0 +1,29 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+}
+
+.center {
+    text-align: center;
+}
+
+.topnavbar {
+    background-color: #2d2d2d;
+    overflow: hidden;
+}
+
+.topnavbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnavbar a.active {
+    background-color: #4989af;
+    color: white;
+}
