@@ -59,12 +59,12 @@ $(document).ready(function () {
     var locations = [{location: {lat: 42.022881, lng: -93.610062}},
         {location: {lat: 42.026086, lng: -93.609412}},
         {location: {lat: 42.045608, lng: -93.644685}},
-        {location: {lat: -33.867386, lng: 151.195767}},
-        {location: {lat: -33.867386, lng: 151.195767}},
-        {location: {lat: -33.867386, lng: 151.195767}},
-        {location: {lat: -33.867386, lng: 151.195767}},
-        {location: {lat: -33.867386, lng: 151.195767}},
-        {location: {lat: -33.867386, lng: 151.195767}}];
+        {location: {lat: 42.022881, lng: -93.610062}},
+        {location: {lat: 42.022881, lng: -93.610062}},
+        {location: {lat: 42.022881, lng: -93.610062}},
+        {location: {lat: 42.022881, lng: -93.610062}},
+        {location: {lat: 42.022881, lng: -93.610062}},
+        {location: {lat: 42.022881, lng: -93.610062}}];
 
     var streetviewService = new google.maps.StreetViewService;
 
