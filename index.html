@@ -339,32 +339,69 @@
             <div class="col-lg-4">
                 <form>
                     GrLivArea:
-                    <input type="text" name=""><br>
+                    <input type="text" name="grliv" placeholder="e.g. 100"><br>
                     OverallQual:
-                    <input type="text" name=""><br>
+                    <select name="overall_qual">
+                        <option value="10">10 - Very Excellent</option>
+                        <option value="9">9 - Excellent</option>
+                        <option value="8">8 - Very Good</option>
+                        <option value="7">7 - Good</option>
+                        <option value="6">6 - Above Average</option>
+                        <option value="5">5 - Average</option>
+                        <option value="4">4 - Below Average</option>
+                        <option value="3">3 - Fair</option>
+                        <option value="2">2 - Poor</option>
+                        <option value="1">1 - Very Poor</option>
+                    </select><br>
                     YearBuilt:
-                    <input type="text" name=""><br>
+                    <input type="text" name="year" placeholder="e.g. 2009"><br>
                     TotalBsmtSF:
-                    <input type="text" name=""><br>
-                    BsmtFinSF1:
-                    <input type="text" name=""><br>
+                    <input type="text" name="totalbsmt" placeholder="e.g. 300"><br>
                     OverallCond:
-                    <input type="text" name=""><br>
+                    <select name="overall_cond">
+                        <option value="10">10 - Very Excellent</option>
+                        <option value="9">9 - Excellent</option>
+                        <option value="8">8 - Very Good</option>
+                        <option value="7">7 - Good</option>
+                        <option value="6">6 - Above Average</option>
+                        <option value="5">5 - Average</option>
+                        <option value="4">4 - Below Average</option>
+                        <option value="3">3 - Fair</option>
+                        <option value="2">2 - Poor</option>
+                        <option value="1">1 - Very Poor</option>
+                    </select><br>
                     MSZoning_C:
-                    <input type="text" name=""><br>
+                    <select name="mszoning">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select><br>
                     GarageArea:
-                    <input type="text" name=""><br>
+                    <input type="text" name="garage" placeholder="e.g. 500"><br>
                     Fireplaces:
-                    <input type="text" name=""><br>
+                    <input type="text" name="fireplaces" placeholder="e.g. 2"><br>
                     Foundation_PConc:
-                    <input type="text" name=""><br>
+                    <select name="pconc">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select><br>
+                    <br>
+                    <input type="button" value="Submit" onclick="testResults(this.form)">
                 </form>
             </div>
             <div class="col-lg-4">
-                <button size="10px">Submit</button>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                                refX="0" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" />
+                        </marker>
+                    </defs>
+                    <line x1="0" y1="50" x2="250" y2="50" stroke="#000"
+                          stroke-width="8" marker-end="url(#arrowhead)" />
+                </svg>
             </div>
             <div class="col-lg-4">
-                <textarea></textarea>
+                <textarea id="result"></textarea>
             </div>
         </div>
     </div>
@@ -376,56 +413,56 @@
 </header>
 
 <!--<section class="p-5" id="rec">-->
-    <!--<div class="container">-->
-        <!--<h2 class="section-heading"> Insights</h2>-->
-        <!--<div class="row">-->
-            <!--<div class="col-lg-12">-->
-                <!--<br>-->
-                <!--<span class="firstcharacter">1.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
-                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
-                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
-                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
-                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
-                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
-                <!--<br><br>-->
-                <!--<span class="firstcharacter">2.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
-                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
-                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
-                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
-                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
-                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
-                <!--<br><br>-->
-                <!--<span class="firstcharacter">3.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
-                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
-                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
-                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
-                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
-                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
-                <!--<br><br>-->
-                <!--<span class="firstcharacter">4.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
-                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
-                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
-                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
-                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
-                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
-                <!--<br><br>-->
-                <!--<iframe width="600" height="371" align="right" seamless frameborder="0" scrolling="no"-->
-                        <!--src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS-R-spYorziC8VYdhtiZrmw5Z23_DHTN0BvvjrUoiBxXfUqGjnhpLxwriwnbihM5eXd6tNeHaTlmdb/pubchart?oid=1263633939&amp;format=interactive"></iframe>-->
-                <!--<span class="firstcharacter">5.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
-                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
-                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
-                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
-                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
-                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
-                <!--<br><br>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="container">-->
+<!--<h2 class="section-heading"> Insights</h2>-->
+<!--<div class="row">-->
+<!--<div class="col-lg-12">-->
+<!--<br>-->
+<!--<span class="firstcharacter">1.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+<!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+<!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+<!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+<!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+<!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+<!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+<!--<br><br>-->
+<!--<span class="firstcharacter">2.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+<!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+<!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+<!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+<!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+<!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+<!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+<!--<br><br>-->
+<!--<span class="firstcharacter">3.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+<!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+<!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+<!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+<!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+<!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+<!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+<!--<br><br>-->
+<!--<span class="firstcharacter">4.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+<!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+<!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+<!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+<!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+<!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+<!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+<!--<br><br>-->
+<!--<iframe width="600" height="371" align="right" seamless frameborder="0" scrolling="no"-->
+<!--src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS-R-spYorziC8VYdhtiZrmw5Z23_DHTN0BvvjrUoiBxXfUqGjnhpLxwriwnbihM5eXd6tNeHaTlmdb/pubchart?oid=1263633939&amp;format=interactive"></iframe>-->
+<!--<span class="firstcharacter">5.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+<!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+<!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+<!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+<!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+<!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+<!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+<!--<br><br>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</section>-->
 <!--<hr class="my-5">-->
 
