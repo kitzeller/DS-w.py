@@ -56,9 +56,6 @@
                     <a class="nav-link js-scroll-trigger" href="#modeling">Modeling</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#training">Training</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#predicitng">Predicting</a>
                 </li>
                 <li class="nav-item">
@@ -140,30 +137,67 @@
     <div class="container">
         <h2 class="section-heading"> Data Cleaning </h2>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <br>
-                <span class="firstcharacter">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <h3 class="section-heading"> Ordinal Mapping</h3>
+                For the features mentioned above that have categorical values that
+                can be assigned to numbers, ordinal mapping was used. For example, the feature mentioned above:
+                “FirePlaceQu”, describing the quality of the fireplace in the home, has one of the following values:
+                “Ex”, ”Gd”, ”TA”, ”FA”, ”PO”, ”NA”. As seen in the code snippet in Figure 3, an ordinal mapping was
+                applied to this feature, assigning 5 to “Ex”, 4 to “Gd”, 3 to “TA”, 2 to “FA”, 1 to “PO” and 0 to “NA”
+                or NaN (null value found in the data frame).
                 <br><br>
-            </div>
-            <div class="col-lg-4">
-                <img class="img-fluid shadow" src="">
-                <div style="font-size:12px">
-                    <p><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</i></p>
+                <img class="img-fluid shadow" src="img/ordinal_mapping.png">
+                <div style="text-align: center; font-size:12px">
+                    <p><i>Fig 3. Ordinal Mapping</i></p>
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
-            <iframe align="left" width="600" height="371" seamless frameborder="0" scrolling="no"
-                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS-R-spYorziC8VYdhtiZrmw5Z23_DHTN0BvvjrUoiBxXfUqGjnhpLxwriwnbihM5eXd6tNeHaTlmdb/pubchart?oid=736267315&amp;format=interactive"></iframe>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="row">
+            <div class="col-lg-12">
+                <br>
+                <h3 class="section-heading"> One-hot Encoding</h3>
+                For categorical features that do not have a visible order, one-hot encoding was used. This means that
+                for example, the “Neighborhood” feature has 25 unique towns in the column, and after one-hot encoding
+                this feature, it was converted into 25 features. The features are binary and represent “Is town 1?”, “Is
+                town 2?”, etc. This conversion to one-hot encoded features can be accomplished with just one line of
+                code: pd.get_dummies(x, dummy_na = True). The parameter “dummy_na=True” ensures that the null values
+                have their own column, as it is possible that having a null value for the column can be related to the
+                output and can be used as a feature.
+                <br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <br>
+                <h3 class="section-heading"> Filling Null Values</h3>
+                For the null values in the dataset, careful consideration was given depending on the feature that
+                contained the null value. The null values in categorical features were replaced with 0, as it was
+                assumed that the feature just did not exist; however quite an important numerical feature,
+                “LotFrontage”, contained over 200 null values, so these values needed to be replaced with more thought.
+                For this feature, a multiple linear regression was fit with the remaining columns after null values were
+                temporarily dropped and the “LotFrontage” feature was filled with the prediction from the multiple
+                linear regression.
+                <br><br>
+            </div>
+        </div>
+        <br>
+        <h3 class="section-heading"> Removing Outliers</h3>
+        <div class="row">
+            <br>
+            <div class="col-lg-4">
+                <p class="mb-5">
+                    For a feature describing the living area, there were very noticeable outliers present. These were
+                    removed, as they were decreasing the accuracy of our model. This can be seen below.
+                </p>
+            </div>
+            <div class="col-lg-7 my-8">
+                <img class="img-fluid shadow" src="img/removing_outliers.png">
+                <div style="font-size:12px" class="text-center">
+                    <br>
+                    <p><i>Removing outliers.</i></p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -177,13 +211,13 @@
     <div class="container">
         <h2 class="section-heading"> Data Pre-Processing </h2>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <br>
-                <span class="firstcharacter">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <span class="firstcharacter">T</span>he output variable, SalePrice, was right skewed. It would be more
+                ideal to predict an output that was normally distributed. Below you can see the original output and then
+                the output after a log transform was performed. The log is very close to a normal distribution, so the
+                log of the output was predicted and then the exp of the prediction was taken later on to see the real
+                SalePrice.
                 <br><br>
                 <ol class="list-unstyled">
                     <li>
@@ -200,10 +234,10 @@
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-3">
-                <img class="img-fluid shadow" src="">
-                <div style="font-size:12px">
-                    <p><i>Placeholder image text.</i></p>
+            <div class="col-lg-6">
+                <img class="img-fluid shadow" src="img/predicting_log.png">
+                <div style="text-align: center; font-size:12px">
+                    <p><i>Predicting log(SalePrice).</i></p>
                 </div>
             </div>
 
@@ -215,119 +249,27 @@
     <div class="container">
         <h2 class="section-heading"> Data Modeling </h2>
         <div class="row">
-            <div class="col-lg-8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Diam vel quam elementum pulvinar etiam non quam. Vestibulum sed arcu non odio. Sem
-                fringilla ut morbi tincidunt augue interdum. Sed felis eget velit aliquet. Nulla aliquet porttitor lacus
-                luctus accumsan tortor posuere. Tincidunt dui ut ornare lectus. Ac felis donec et odio. Nulla pharetra
-                diam sit amet. Vitae ultricies leo integer malesuada nunc vel. Nulla facilisi morbi tempus iaculis urna
-                id volutpat lacus. Suspendisse ultrices gravida dictum fusce ut placerat orci. Nibh nisl condimentum id
-                venenatis a.
-                <br><br>
-                Ut etiam sit amet nisl purus. Vitae ultricies leo integer malesuada nunc. Est lorem ipsum dolor sit amet
-                consectetur. Fames ac turpis egestas maecenas. Felis eget nunc lobortis mattis aliquam faucibus purus.
-                Facilisis sed odio morbi quis commodo. Pulvinar etiam non quam lacus suspendisse. Ac turpis egestas
-                integer eget. Tincidunt vitae semper quis lectus nulla. At augue eget arcu dictum varius duis at. Tortor
-                at risus viverra adipiscing at in. Posuere morbi leo urna molestie at elementum eu facilisis sed.
-                Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat.
-                <br><br>
-
-                Aliquam etiam erat velit scelerisque in dictum non. Mattis vulputate enim nulla aliquet porttitor lacus
-                luctus. Netus et malesuada fames ac turpis egestas sed tempus. Diam phasellus vestibulum lorem sed risus
-                ultricies tristique. Tellus at urna condimentum mattis pellentesque. Felis donec et odio pellentesque
-                diam volutpat commodo sed. Interdum posuere lorem ipsum dolor sit amet. Tempus imperdiet nulla malesuada
-                pellentesque elit eget gravida. Felis eget velit aliquet sagittis id consectetur purus ut faucibus.
-                Vitae tempus quam pellentesque nec nam. Nisl condimentum id venenatis a condimentum vitae sapien
-                pellentesque. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. At tellus at urna
-                condimentum mattis pellentesque.
-                <br><br>
-
-                Viverra ipsum nunc aliquet bibendum enim. Ut etiam sit amet nisl purus in mollis. Commodo ullamcorper a
-                lacus vestibulum sed. Risus quis varius quam quisque id diam vel quam elementum. Amet consectetur
-                adipiscing elit duis tristique sollicitudin nibh sit. Vulputate eu scelerisque felis imperdiet proin
-                fermentum leo. Sed egestas egestas fringilla phasellus faucibus. Sem nulla pharetra diam sit amet nisl
-                suscipit adipiscing bibendum. Eu tincidunt tortor aliquam nulla facilisi. Tincidunt dui ut ornare
-                lectus. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend. Justo nec
-                ultrices dui sapien eget mi proin sed.
-                <br><br>
-
-                Malesuada fames ac turpis egestas maecenas. Orci porta non pulvinar neque laoreet suspendisse interdum.
-                Urna nec tincidunt praesent semper feugiat nibh. Nulla aliquet enim tortor at auctor urna nunc.
-                Convallis a cras semper auctor neque vitae tempus quam. Non arcu risus quis varius quam quisque id diam
-                vel. Vitae nunc sed velit dignissim. Lorem dolor sed viverra ipsum nunc aliquet bibendum enim. Amet
-                consectetur adipiscing elit duis tristique sollicitudin. Lorem sed risus ultricies tristique. Sit amet
-                venenatis urna cursus eget nunc scelerisque viverra mauris. Habitant morbi tristique senectus et netus
-                et malesuada fames. Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum. Venenatis a
-                condimentum vitae sapien pellentesque habitant morbi. Morbi leo urna molestie at elementum eu facilisis.
-                Ultricies mi quis hendrerit dolor magna eget est. Ut pharetra sit amet aliquam id diam. Viverra nibh
-                cras pulvinar mattis nunc sed blandit. Etiam erat velit scelerisque in dictum non.
-                <br><br>
-
-                Sodales neque sodales ut etiam sit amet nisl purus in. Eu ultrices vitae auctor eu augue ut. Ultricies
-                mi eget mauris pharetra et. Nibh praesent tristique magna sit amet purus gravida quis. Ut sem viverra
-                aliquet eget sit amet. Sapien et ligula ullamcorper malesuada proin libero nunc. Ultricies integer quis
-                auctor elit sed vulputate mi. Id consectetur purus ut faucibus pulvinar elementum integer. Tellus in hac
-                habitasse platea dictumst vestibulum. In dictum non consectetur a. Bibendum ut tristique et egestas.
-                Placerat duis ultricies lacus sed turpis tincidunt id aliquet risus. Vel turpis nunc eget lorem dolor
-                sed viverra ipsum nunc. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum. Pellentesque
-                habitant morbi tristique senectus et netus et.
+            <div class="col-lg-12">
+                A Lasso regression was used to reduce the amount of features in the overall model and achieve low error
+                in predicting the output. The Lasso regression was followed by a ridge regression to even further
+                decrease the error. The are 64 total features used to predict the SalePrice and the MSE of our testing
+                set is about <b>$20,240</b>. We can sacrifice some accuracy and reduce the amount of features to just
+                10,
+                allowing you to predict the price of a house in Ames, Iowa with an MSE of about <b>$27,000</b>.
                 <br><br>
             </div>
-            <div class="col-lg-4">
-                <img class="img-fluid shadow" src="">
-                <div style="font-size:12px">
-                    <p><i>Plot Placeholder.</i></p>
+            <div class="row">
+                <div class="col-lg-10">
+                    <img class="img-fluid shadow" src="img/regr_coef.png">
+                    <div style="text-align: center; font-size:12px">
+                        <p><i>Regression Coefficients.</i></p>
+                    </div>
                 </div>
-                <img class="img-fluid shadow" src="">
-                <div style="font-size:12px">
-                    <p><i>Plot Placeholder.</i></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="p-3" id="training">
-    <div class="container">
-        <h2 class="section-heading"> Data Training </h2>
-        <div class="row">
-            <div class="col-lg-8">
-                <br>
-                Aliquam etiam erat velit scelerisque in dictum non. Mattis vulputate enim nulla aliquet porttitor lacus
-                luctus. Netus et malesuada fames ac turpis egestas sed tempus. Diam phasellus vestibulum lorem sed risus
-                ultricies tristique. Tellus at urna condimentum mattis pellentesque. Felis donec et odio pellentesque
-                diam volutpat commodo sed. Interdum posuere lorem ipsum dolor sit amet. Tempus imperdiet nulla malesuada
-                pellentesque elit eget gravida. Felis eget velit aliquet sagittis id consectetur purus ut faucibus.
-                Vitae tempus quam pellentesque nec nam. Nisl condimentum id venenatis a condimentum vitae sapien
-                pellentesque. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. At tellus at urna
-                condimentum mattis pellentesque.
-                <br><br>
-                Aliquam etiam erat velit scelerisque in dictum non. Mattis vulputate enim nulla aliquet porttitor lacus
-                luctus. Netus et malesuada fames ac turpis egestas sed tempus. Diam phasellus vestibulum lorem sed risus
-                ultricies tristique. Tellus at urna condimentum mattis pellentesque. Felis donec et odio pellentesque
-                diam volutpat commodo sed. Interdum posuere lorem ipsum dolor sit amet. Tempus imperdiet nulla malesuada
-                pellentesque elit eget gravida. Felis eget velit aliquet sagittis id consectetur purus ut faucibus.
-                Vitae tempus quam pellentesque nec nam. Nisl condimentum id venenatis a condimentum vitae sapien
-                pellentesque. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. At tellus at urna
-                condimentum mattis pellentesque.
-                <br><br>
-                Aliquam etiam erat velit scelerisque in dictum non. Mattis vulputate enim nulla aliquet porttitor lacus
-                luctus. Netus et malesuada fames ac turpis egestas sed tempus. Diam phasellus vestibulum lorem sed risus
-                ultricies tristique. Tellus at urna condimentum mattis pellentesque. Felis donec et odio pellentesque
-                diam volutpat commodo sed. Interdum posuere lorem ipsum dolor sit amet. Tempus imperdiet nulla malesuada
-                pellentesque elit eget gravida. Felis eget velit aliquet sagittis id consectetur purus ut faucibus.
-                Vitae tempus quam pellentesque nec nam. Nisl condimentum id venenatis a condimentum vitae sapien
-                pellentesque. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. At tellus at urna
-                condimentum mattis pellentesque.
-            </div>
-            <div class="col-lg-4">
-                <img class="img-fluid shadow" src="">
-                <div style="font-size:12px">
-                    <p><i>Plot Placeholder.</i></p>
-                </div>
-                <img class="img-fluid shadow" src="">
-                <div style="font-size:12px">
-                    <p><i>Plot Placeholder.</i></p>
+                <div class="col-lg-2">
+                    <img class="img-fluid shadow" src="img/regr_coeff_col.png">
+                    <div style="text-align: center; font-size:12px">
+                        <p><i>Corresponding Regression Coefficients.</i></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -336,7 +278,7 @@
 
 <section class="p-5" id="predicitng">
     <div class="container">
-        <h2 class="section-heading"> Data Prediction </h2>
+        <h2 class="section-heading"> Real Time Prediction</h2>
         <div class="row">
             <div class="col-lg-12">
                 <br>
@@ -354,83 +296,68 @@
                     <div class="col-lg-6">
                         <ol class="list-unstyled">
                             <li>
-                                <span>1.</span> Feature
+                                <span>1.</span> GrLivArea
                             </li>
                             <li>
-                                <span>2.</span> Feature
+                                <span>2.</span> OverallQual
                             </li>
                             <li>
-                                <span>3.</span> Feature
+                                <span>3.</span> YearBuilt
                             </li>
                             <li>
-                                <span>4.</span> Feature
+                                <span>4.</span> TotalBsmtSF
                             </li>
                             <li>
-                                <span>5.</span> Feature
+                                <span>5.</span> BsmtFinSF1
                             </li>
                         </ol>
                     </div>
                     <div class="col-lg-6">
                         <ol class="list-unstyled">
                             <li>
-                                <span>6.</span> Feature
+                                <span>6.</span> OverallCond
                             </li>
                             <li>
-                                <span>7.</span> Feature
+                                <span>7.</span> MSZoning_C
                             </li>
                             <li>
-                                <span>8.</span> Feature
+                                <span>8.</span> GarageArea
                             </li>
                             <li>
-                                <span>9.</span> Feature
+                                <span>9.</span> Fireplaces
                             </li>
                             <li>
-                                <span class="ddigits">10.</span> Feature
+                                <span class="ddigits">10.</span> Foundation_PConc
                             </li>
                         </ol>
                     </div>
                 </div>
-
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Diam vel quam elementum pulvinar etiam non quam. Vestibulum sed arcu non odio. Sem
-                fringilla ut morbi tincidunt augue interdum. Sed felis eget velit aliquet. Nulla aliquet porttitor lacus
-                luctus accumsan tortor posuere. Tincidunt dui ut ornare lectus. Ac felis donec et odio. Nulla pharetra
-                diam sit amet. Vitae ultricies leo integer malesuada nunc vel. Nulla facilisi morbi tempus iaculis urna
-                id volutpat lacus. Suspendisse ultrices gravida dictum fusce ut placerat orci. Nibh nisl condimentum id
-                venenatis a.
-                <br><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Diam vel quam elementum pulvinar etiam non quam. Vestibulum sed arcu non odio. Sem
-                fringilla ut morbi tincidunt augue interdum. Sed felis eget velit aliquet. Nulla aliquet porttitor lacus
-                luctus accumsan tortor posuere. Tincidunt dui ut ornare lectus. Ac felis donec et odio. Nulla pharetra
-                diam sit amet. Vitae ultricies leo integer malesuada nunc vel. Nulla facilisi morbi tempus iaculis urna
-                id volutpat lacus. Suspendisse ultrices gravida dictum fusce ut placerat orci. Nibh nisl condimentum id
-                venenatis a.
                 <br><br>
             </div>
         </div>
-    </div>
-</section>
-
-
-<section class="p-5">
-    <div class="container">
-        <h2 class="section-heading"> Real Time Prediction</h2>
         <div class="row" style="text-align: center; vertical-align: center">
             <div class="col-lg-4">
                 <form>
-                    Feature:
+                    GrLivArea:
                     <input type="text" name=""><br>
-                    Feature:
+                    OverallQual:
                     <input type="text" name=""><br>
-                    Feature:
+                    YearBuilt:
                     <input type="text" name=""><br>
-                    Feature:
+                    TotalBsmtSF:
                     <input type="text" name=""><br>
-                    Feature:
+                    BsmtFinSF1:
                     <input type="text" name=""><br>
-                    Feature:
-                    <input type="text" name="">
+                    OverallCond:
+                    <input type="text" name=""><br>
+                    MSZoning_C:
+                    <input type="text" name=""><br>
+                    GarageArea:
+                    <input type="text" name=""><br>
+                    Fireplaces:
+                    <input type="text" name=""><br>
+                    Foundation_PConc:
+                    <input type="text" name=""><br>
                 </form>
             </div>
             <div class="col-lg-4">
@@ -448,60 +375,59 @@
     <div style="font-size: 10px; position: absolute; right:5px; bottom:0"><i>Ames, Iowa</i></div>
 </header>
 
-<section class="p-5" id="rec">
-    <div class="container">
-        <h2 class="section-heading"> Insights</h2>
-        <div class="row">
-            <div class="col-lg-12">
-                <br>
-                <span class="firstcharacter">1.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non
-                quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget
-                velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare
-                lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc
-                vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum
-                fusce ut placerat orci. Nibh nisl condimentum id venenatis a.
-                <br><br>
-                <span class="firstcharacter">2.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non
-                quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget
-                velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare
-                lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc
-                vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum
-                fusce ut placerat orci. Nibh nisl condimentum id venenatis a.
-                <br><br>
-                <span class="firstcharacter">3.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non
-                quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget
-                velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare
-                lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc
-                vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum
-                fusce ut placerat orci. Nibh nisl condimentum id venenatis a.
-                <br><br>
-                <span class="firstcharacter">4.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non
-                quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget
-                velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare
-                lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc
-                vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum
-                fusce ut placerat orci. Nibh nisl condimentum id venenatis a.
-                <br><br>
-                <iframe width="600" height="371" align="right" seamless frameborder="0" scrolling="no"
-                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS-R-spYorziC8VYdhtiZrmw5Z23_DHTN0BvvjrUoiBxXfUqGjnhpLxwriwnbihM5eXd6tNeHaTlmdb/pubchart?oid=1263633939&amp;format=interactive"></iframe>
-                <span class="firstcharacter">5.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non
-                quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget
-                velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare
-                lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc
-                vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum
-                fusce ut placerat orci. Nibh nisl condimentum id venenatis a.
-                <br><br>
-            </div>
-        </div>
-    </div>
-</section>
-
-<hr class="my-5">
+<!--<section class="p-5" id="rec">-->
+    <!--<div class="container">-->
+        <!--<h2 class="section-heading"> Insights</h2>-->
+        <!--<div class="row">-->
+            <!--<div class="col-lg-12">-->
+                <!--<br>-->
+                <!--<span class="firstcharacter">1.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+                <!--<br><br>-->
+                <!--<span class="firstcharacter">2.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+                <!--<br><br>-->
+                <!--<span class="firstcharacter">3.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+                <!--<br><br>-->
+                <!--<span class="firstcharacter">4.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+                <!--<br><br>-->
+                <!--<iframe width="600" height="371" align="right" seamless frameborder="0" scrolling="no"-->
+                        <!--src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS-R-spYorziC8VYdhtiZrmw5Z23_DHTN0BvvjrUoiBxXfUqGjnhpLxwriwnbihM5eXd6tNeHaTlmdb/pubchart?oid=1263633939&amp;format=interactive"></iframe>-->
+                <!--<span class="firstcharacter">5.</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+                <!--eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vel quam elementum pulvinar etiam non-->
+                <!--quam. Vestibulum sed arcu non odio. Sem fringilla ut morbi tincidunt augue interdum. Sed felis eget-->
+                <!--velit aliquet. Nulla aliquet porttitor lacus luctus accumsan tortor posuere. Tincidunt dui ut ornare-->
+                <!--lectus. Ac felis donec et odio. Nulla pharetra diam sit amet. Vitae ultricies leo integer malesuada nunc-->
+                <!--vel. Nulla facilisi morbi tempus iaculis urna id volutpat lacus. Suspendisse ultrices gravida dictum-->
+                <!--fusce ut placerat orci. Nibh nisl condimentum id venenatis a.-->
+                <!--<br><br>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--<hr class="my-5">-->
 
 
 <section class="p-5" id="team">

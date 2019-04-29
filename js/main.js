@@ -56,24 +56,34 @@ $(document).ready(function () {
     var viewer = [];
 
 
+    var locations = [{location: {lat: 42.022881, lng: -93.610062}},
+        {location: {lat: 42.026086, lng: -93.609412}},
+        {location: {lat: 42.045608, lng: -93.644685}},
+        {location: {lat: -33.867386, lng: 151.195767}},
+        {location: {lat: -33.867386, lng: 151.195767}},
+        {location: {lat: -33.867386, lng: 151.195767}},
+        {location: {lat: -33.867386, lng: 151.195767}},
+        {location: {lat: -33.867386, lng: 151.195767}},
+        {location: {lat: -33.867386, lng: 151.195767}}];
+
+    var streetviewService = new google.maps.StreetViewService;
+
     function initialize() {
-        var streetviewService = new google.maps.StreetViewService;
+
+        var randInt = Math.floor(Math.random() * 4);
+
         streetviewService.getPanorama(
-            {location: {lat: -33.867386, lng: 151.195767}},
+            locations[randInt],
             function (result, status) {
                 if (status === 'OK') {
-
                     $('.pano-container').each(function (index) {
-
                         panorama[index] = new PANOLENS.GoogleStreetviewPanorama(result.location.pano);
                         viewer[index] = new PANOLENS.Viewer({container: $(this)[0]});
                         viewer[index].add(panorama[index]);
                         viewer[index].OrbitControls.noZoom = true;
 
                         viewer[index].addUpdateCallback(function () {
-
                             viewer[index].panorama.rotation.y -= 0.001;
-
                         });
 
 
