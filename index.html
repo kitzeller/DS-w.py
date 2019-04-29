@@ -261,23 +261,20 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                We can compare the feature importance by looking at their coefficients before and after forward feature
-                reduction.
+                We can look at the feature importance by plotting the absolute value of the coefficients.
                 <br><br>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                <img class="img-fluid shadow" src="img/feature_coeff_plot1.png">
-                <div style="text-align: center; font-size:12px">
-                    <p><i>Before Forward Feature Reduction</i></p>
-                </div>
+            <div class="col-lg-3">
             </div>
             <div class="col-lg-6">
-                <img class="img-fluid shadow" src="img/feature_coeff_plot1.png">
+                <img class="img-fluid shadow" src="img/feature_coeff_plot2.png">
                 <div style="text-align: center; font-size:12px">
                     <p><i>After Forward Feature Reduction</i></p>
                 </div>
+            </div>
+            <div class="col-lg-3">
             </div>
         </div>
     </div>
@@ -308,24 +305,27 @@
                                 <span>4.</span> TotalBsmtSF : Total square feet of the basement area
                             </li>
                             <li>
-                                <span>5.</span> OverallCond : Rates the overall condition of the house (same values as
-                                OverallQual)
+                                <span>5.</span> BsmtFinSF1 : Basement type 1 material square feet
                             </li>
                         </ol>
                     </div>
                     <div class="col-lg-6">
                         <ol class="list-unstyled">
                             <li>
-                                <span>6.</span> MSZoning_C : Is it a commercial building?
+                                <span>6.</span> OverallCond : Rates the overall condition of the house (same values as
+                                OverallQual)
                             </li>
                             <li>
-                                <span>7.</span> GarageArea : Size of garage in square feet
+                                <span>7.</span> MSZoning_C : Is it a commercial building?
                             </li>
                             <li>
-                                <span>8.</span> Fireplaces : Number of fireplaces
+                                <span>8.</span> GarageArea : Size of garage in square feet
                             </li>
                             <li>
-                                <span>9.</span> Foundation_PConc : Does it have a Poured Concrete foundation?
+                                <span>9.</span> Fireplaces : Number of fireplaces
+                            </li>
+                            <li>
+                                <span class="ddigits">10.</span> Foundation_PConc : Does it have a Poured Concrete foundation?
                             </li>
                         </ol>
                     </div>
@@ -339,6 +339,7 @@
                 <label>OverallQual: </label>
                 <label>YearBuilt: </label>
                 <label>TotalBsmtSF: </label>
+                <label>BsmtFinSF1: </label>
                 <label>OverallCond: </label>
                 <label>MSZoning_C: </label>
                 <label>GarageArea: </label>
@@ -363,6 +364,7 @@
                     </select><br>
                     <input type="text" name="year" placeholder="e.g. 2009"><br>
                     <input type="text" name="totalbsmt" placeholder="e.g. 300"><br>
+                    <input type="text" name="sf1" placeholder="e.g. 300"><br>
                     <select name="overall_cond">
                         <option value="10">10 - Very Excellent</option>
                         <option value="9">9 - Excellent</option>

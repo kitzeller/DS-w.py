@@ -102,17 +102,22 @@ $(document).ready(function () {
 });
 
 function testResults(form) {
-    var x1 = parseInt(form.grliv.value);
-    var x2 = parseInt(form.overall_qual.value);
-    var x3 = parseInt(form.year.value);
-    var x4 = parseInt(form.totalbsmt.value);
-    var x5 = x4 * 0.41592;
-    var x6 = parseInt(form.overall_cond.value);
-    var x7 = parseInt(form.mszoning.value);
-    var x8 = parseInt(form.garage.value);
-    var x9 = parseInt(form.fireplaces.value);
-    var x10 = parseInt(form.pconc.value);
+    var x1 = (parseInt(form.grliv.value) - 1503.656062)/496.325715;
+    var x2 = (parseInt(form.overall_qual.value) - 6.079106) /1.345843;
+    var x3 = (parseInt(form.year.value) - 1970.811694)/30.548764;
+    var x4 = (parseInt(form.totalbsmt.value) - 1041.688736)/401.989910;
+    var x5 = (parseInt(form.sf1.value)- 425.522786)/424.610229;
+    var x6 = (parseInt(form.overall_cond.value) - 5.583835)/1.104122;
+    var x7 = (parseInt(form.mszoning.value) - 0.006879)/0.082688;
+    var x8 = (parseInt(form.garage.value) - 469.956148)/208.514669;
+    var x9 = (parseInt(form.fireplaces.value) - 0.608770)/0.636653;
+    var x10 = (parseInt(form.pconc.value) - 0.447979)/0.497500;
 
+
+    // console.log(form.totalbsmt.value);
+    console.log(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10);
+
+    //(input - mean)/sd
 
     var c1 = 0.13175142;
     var c2 = 0.09435117;
@@ -125,8 +130,8 @@ function testResults(form) {
     var c9 = 0.03550599;
     var c10 = 0.03217456;
 
-    var y = Math.exp(x1*c1 + x2*c2 + x3*c3 + x4*c4 + x5*c5 + x6*c6 + x7*c7 + x8*c8 + x9*c9 + x10*c10);
+    var y = Math.exp(x1*c1 + x2*c2 + x3*c3 + x4*c4 + x5*c5 + x6*c6 + x7*c7 + x8*c8 + x9*c9 + x10*c10 + 12.02018355);
 
-    document.getElementById("result").value = "$" + y.toPrecision(4);
+    document.getElementById("result").value = "$" + y.toLocaleString();
 
 }
